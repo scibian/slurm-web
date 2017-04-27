@@ -1,0 +1,284 @@
+slurm-web (2.2.2) unstable; urgency=medium
+
+  * Add missing parenthesis when calling pyslurm().job
+  * Handle more node states
+
+ -- Mehdi Dogguy <mehdi@dogguy.org>  Thu, 27 Apr 2017 18:01:08 +0200
+
+slurm-web (2.2.1) unstable; urgency=medium
+
+  [ Yen C. Li ]
+  * REST API:
+    * Fix privatedata hole in some API routes (#170)
+  * Conf:
+    * Turn WSGIPassAuthorization on in Apache2 conf (#162)
+
+  [ Rémi Palancher ]
+  * REST API:
+    * Break loop when view removed from restricted set
+
+ -- Rémi Palancher <remi-externe.palancher@edf.fr>  Thu, 06 Apr 2017 09:22:12 +0200
+
+slurm-web (2.2.0) unstable; urgency=medium
+
+  [ Yen C. Li ]
+  * REST API:
+    * Honor Slurm PrivateData settings for jobs and reservations (#149)
+    * Use GET instead of POST for most routes. The optional authentication token
+      is now given in a new Authorization HTTP header (#63).
+    * Remove password from token (#64)
+    * Handle LDAP SERVER_DOWN exception (#107)
+  * Dashboard:
+    * Make path to top-left corner logo configurable (#102)
+    * Show full name at the top right corner (#110)
+    * Show real cluster name instead of local (#61)
+    * Show TRES instead of nodelist in jobs view (#89)
+    * Show node down/drain reason (#90)
+    * Add optional extra customizable col in jobs view (#65)
+    * Significantly reduce margins between racks (#126)
+    * Fix empty jobs view lock (#136)
+    * Fix serial authentification failures (#137)
+    * Factorize dashboard error management (#124,#150)
+    * Add WCKey to dashboard jobs view (#141)
+    * Fix global logout on one cluster auth fail (#158)
+    * Disable caching effect on dashboard conf files (#99,#159)
+  * Doc:
+    * Update for new features
+
+  [ Rémi Palancher ]
+  * Tests:
+    * Introduce a programmable testing environment with mocks and fake data
+    sources.
+  * REST API:
+    * Fix PySLURM call to job find_id() following API change introduced with
+      PySLURM >= 16.05 (#138).
+    * Remove use of join in partitions view following API change introduced with
+      PySLURM >= 16.05 (#140).
+    * Slurm-web REST API now depends on PySLURM >= 16.05
+  * Doc:
+    * Minor doc formatting fixes
+
+  [ Alexandre Beche ]
+  * REST API:
+    * Adding sinfo endpoint to slurmrestapi (#145)
+
+  [ oulinbao ]
+  * Doc:
+    * Correct typo Flash to Flask in README (#148)
+
+  [ Kilian Cavalotti ]
+  * Integration:
+    * Provide DockerFile and associated scripts to instanciate Slurm-web within
+      Docker container. The install guide documentation has been updated with
+      instanciation instructions. (#160)
+
+ -- Rémi Palancher <remi-externe.palancher@edf.fr>  Wed, 08 Feb 2017 10:05:25 +0100
+
+slurm-web (2.1.3) unstable; urgency=medium
+
+  * Fix LDAP SSL/TLS server certificate validation
+
+ -- Rémi Palancher <remi-externe.palancher@edf.fr>  Mon, 05 Sep 2016 14:49:42 +0200
+
+slurm-web (2.1.2) unstable; urgency=medium
+
+  * Make TRES conversion compatible with Python 2.6
+
+ -- Rémi Palancher <remi-externe.palancher@edf.fr>  Wed, 31 Aug 2016 09:22:41 +0200
+
+slurm-web (2.1.1) unstable; urgency=medium
+
+  * Fix packaging issues following large dashboard code re-organisation
+
+ -- Rémi Palancher <remi-externe.palancher@edf.fr>  Mon, 29 Aug 2016 17:08:55 +0200
+
+slurm-web (2.1.0) unstable; urgency=medium
+
+  * REST API:
+    * Redis caching feature is now optional
+    * New nodeset route to expand hostlist
+    * Control guests access explicitely when authentication is enabled
+    * API secret key moved into separate file
+    * LDAP user/group bases parameters clean-up and hard-coded paths removed
+    * Bug fixes:
+      * LDAPs certificate check was not done properly
+  * Dashboard:
+    * Optional ACL to restrict access on views
+    * New filters (dates, nodes, etc) in Jobs view
+    * More asynchronous/parallel Ajax requests to improve responsitivity
+    * Large performance improvements in 3D view
+    * Racks names displayed in 3D view
+    * Collisions are detected and avoided in 3D view
+    * Node names displayed in tooltip in Jobsmap view
+    * Optional automatic login/logout on multiple clusters
+    * The views are hidden in drop menu on low screen sizes
+    * Filter jobs on click in QOS, partition and reservations views
+    * The "nodes by *" pie charts have been replaces by a new jobs per state
+      chart
+    * Node names are displayed vertically on nodes with height over width
+      (eg. blades)
+    * Show new Slurm 15.08 TRES limits in QOS view
+    * Capitalize cluster name in left and top menu
+    * Bug fixes:
+      * Wrong pie charts with completed jobs
+      * Scrolling and modal lost on data reload
+      * Handle MAINTENANCE node state
+      * Show error when users do not have any role on authentication
+      * Wrong job list displayed with large load in multi-cluster mode
+      * First cluster not high-lighted in left menu on dashboard load
+      * Gantt/QOS broken when a QOS has not started jobs
+      * Graph in topology view broken on complex network hierarchies
+
+ -- Rémi Palancher <remi-externe.palancher@edf.fr>  Tue, 23 Aug 2016 11:27:34 +0200
+
+slurm-web (2.0.0) unstable; urgency=medium
+
+  * Make use of cache mechanism optional #73
+  * fix: Time displayed for running jobs in "Start" column is 1hour too old #54
+
+ -- Rémi Palancher <remi-externe.palancher@edf.fr>  Tue, 12 Jan 2016 16:41:06 +0100
+
+slurm-web (1.9.5) unstable; urgency=medium
+
+  * Revert "fix bug on 2D racks rendering and posy below 2" cause
+    that was actually a regression
+
+ -- Rémi Palancher <remi-externe.palancher@edf.fr>  Fri, 08 Jan 2016 15:57:27 +0100
+
+slurm-web (1.9.4) unstable; urgency=medium
+
+  * fix typo in resticted_fields_* parameters
+  * make secret_key and roles parameters optional when auth is disable
+  * warn in logs on wrong configuration of racks.xml on 3D view
+  * remove racks section and make path /etc/slurm-web/racks.xml real default in
+    REST conf
+  * fix captions inverted between Jobmaps and Racks views
+  * fix bug on 2D racks rendering and posy below 2
+  * fix clic on partition or QOS dans jobs' list that did not work
+  * fix old views are not hidden when switching to a new view
+  * update documentation
+
+ -- Rémi Palancher <remi-externe.palancher@edf.fr>  Fri, 08 Jan 2016 10:42:02 +0100
+
+slurm-web (1.9.3) unstable; urgency=medium
+
+  * Add missing dep on libjs-handlebars
+  * update documentation: dashboard usage & architecture
+
+ -- Rémi Palancher <remi-externe.palancher@edf.fr>  Fri, 06 Nov 2015 12:03:13 +0100
+
+slurm-web (1.9.2) unstable; urgency=medium
+
+  * Split dependencies over multiple lines
+  * The dashboard depends on the confdashboard
+
+ -- Rémi Palancher <remi-externe.palancher@edf.fr>  Fri, 30 Oct 2015 11:48:02 +0100
+
+slurm-web (1.9.1) unstable; urgency=medium
+
+  * Remove redundant xdomain.min.js
+  * Replace minified xdomain with original source
+  * Add missing dh depends on slurm-web pkg
+  * Remove -x bits on REST API WSGI file
+
+ -- Rémi Palancher <remi-externe.palancher@edf.fr>  Fri, 30 Oct 2015 09:37:09 +0100
+
+slurm-web (1.9.0) unstable; urgency=medium
+
+  * new major v2.0 pre-release
+
+ -- Rémi Palancher <remi-externe.palancher@edf.fr>  Thu, 29 Oct 2015 17:28:10 +0100
+
+slurm-web (1.1.3) unstable; urgency=low
+
+  * Add missing qos/partitions calls in reference API doc 
+
+ -- Rémi Palancher <remi-externe.palancher@edf.fr>  Fri, 10 Jul 2015 15:07:36 +0200
+
+slurm-web (1.1.2) unstable; urgency=medium
+
+  [ Mehdi Dogguy ]
+  * Update documentation with new features of 1.1 (Fixes #41).
+
+  [ Rémi Palancher ]
+  * Fix screenshot thumbnails in html doc
+
+ -- Rémi Palancher <remi-externe.palancher@edf.fr>  Fri, 10 Jul 2015 14:41:06 +0200
+
+slurm-web (1.1.1) unstable; urgency=low
+
+  * Handle DST (Daylight Saving Time)
+  * Small change in function minutes_to_delay: Use isNaN before converting
+    the time offset.
+
+ -- Mehdi Dogguy <mehdi.dogguy@edf.fr>  Fri, 03 Jul 2015 18:07:46 +0200
+
+slurm-web (1.1.0) unstable; urgency=low
+
+  [ Mehdi Dogguy ]
+  * Add a QOS view (Fixes #28)
+  * Add a Partitions view
+  * Hide 1/1/1970 dates (Fixes #39)
+  * Show cluster name in title (Fixes #37)
+  * Show time diff until/since job starts/started (Fixes #31).
+  * Redirect logs to stderr
+  * Allow <nodes> to contain <node>s without <nodeset>s
+  * Add ability to sort on columns in tables  (Fixes #35)
+  * Do not fail when node is not known to Slurm (Fixes #36)
+  * Simpler code to draw nodes
+
+  [ Rémi Palancher ]
+  * New slurm-web meta-package to install all slurm-web components at once
+  * Add binary version constraints on meta-pkg deps
+  * Calculate best cores ratio based on node dimensions
+  * Round cores height/width to avoid blured rects
+  * Slightly alter cores positions inside nodes
+
+ -- Mehdi Dogguy <mehdi.dogguy@edf.fr>  Fri, 03 Jul 2015 14:34:04 +0200
+
+slurm-web (1.0.1) UNRELEASED; urgency=low
+
+  [ Mehdi Dogguy ]
+  * Known colors as parameters and ease drawing of map legend
+  * Add Reserved state in legend
+  * Handle RESERVED node state (Fixes #27)
+  * More generic code to show/hide elements when switching between pages
+
+  [ Rémi Palancher ]
+  * Add 1st version of users guide in documentation
+  * Set doc latexpdf format to a4paper
+  * Add first version of the documentation
+  * Add 1st version of gitignore file
+  * Handle DRAINING state just as DRAINED
+  * Fix wrong reference to unknown variable id_node
+
+ -- Mehdi Dogguy <mehdi.dogguy@edf.fr>  Mon, 08 Jun 2015 11:53:27 +0200
+
+slurm-web (1.0.0) unstable; urgency=medium
+
+  * Consider node COMPLETING state as being ALLOCATED
+  * CCN written in white in the logo for dark background
+  * Add ability to split rackview into multiple canvas
+  * Add code to parse racks XML and return JSON
+  * Add example XML rackmap file + DTD
+  * Add new dependency to clustershell package for -restapi
+  * Racks are now drawn based on information from API
+  * Add rack names in rackmap
+  * Show login/username instead of UID in jobs view
+  * Cut the nodesets in jobs view if too long
+  * Add some pie plots in job view
+  * Turn navbar links and brand name into white
+  * Distinct mix / fully allocated nodes in rack view
+  * Fix bug when job.nodes null with state != PENDING
+  * Add start time for pending jobs when available
+  * Add reservations page
+  * Show modal with all information when click on job
+  * Add new JobsMap view in dashboard
+
+ -- Rémi Palancher <remi-externe.palancher@edf.fr>  Fri, 03 Apr 2015 09:35:50 +0200
+
+slurm-web (0.1.0) calibre9; urgency=medium
+
+  * Initial release.
+
+ -- Rémi Palancher <remi-externe.palancher@edf.fr>  Thu, 26 Feb 2015 17:44:04 +0100
