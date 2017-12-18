@@ -1,3 +1,9 @@
+slurm-web (2.2.2sci8u1) scibian8; urgency=medium
+
+  * Scibian8 rebuild.
+
+ -- Thomas Hamel <thomas-externe.hamel@edf.fr>  Mon, 18 Dec 2017 13:46:23 +0100
+
 slurm-web (2.2.2) unstable; urgency=medium
 
   * Add missing parenthesis when calling pyslurm().job
