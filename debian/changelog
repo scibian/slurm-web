@@ -1,3 +1,9 @@
+slurm-web (2.2.3sci8u1) scibian8; urgency=medium
+
+  * Scibian8 rebuild.
+
+ -- Thomas Hamel <thomas-externe.hamel@edf.fr>  Fri, 04 May 2018 14:16:57 +0200
+
 slurm-web (2.2.3) unstable; urgency=medium
 
   [ Mehdi Dogguy ]
