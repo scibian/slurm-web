@@ -19,6 +19,12 @@ canvas {
   border-bottom: 1px solid #eee;
 }
 
+#refreshCheckboxContainer {
+  position: absolute;
+  top: 7px;
+  right: 10px;
+}
+
 /*
  * Top navigation
  * Hide default border to remove 1px line.

@@ -1,8 +1,14 @@
-slurm-web (2.2.3sci8u1) scibian8; urgency=medium
+slurm-web (2.2.4) unstable; urgency=medium
 
-  * Scibian8 Release.
+  [ esolares ]
+  * Fixed month abbreviation in debian/changelog
 
- -- Thomas Hamel <thomas-externe.hamel@edf.fr>  Fri, 04 May 2018 14:44:25 +0200
+  [ Frédéric Ballan ]
+  * Try to log in current cluster first
+  * Allow switch to login page if unauthorized
+  * Enhance auto-refresh checkbox's behavior
+
+ -- Frédéric BALLAN <frederic-externe.ballan@edf.fr>  Fri, 30 Aug 2019 15:39:45 +0200
 
 slurm-web (2.2.3) unstable; urgency=medium
 
@@ -35,12 +41,6 @@ slurm-web (2.2.3) unstable; urgency=medium
   * Improve error messages
 
  -- Thomas HAMEL <thomas-externe.hamel@edf.fr>  Fri, 04 May 2018 14:36:24 +0200
-
-slurm-web (2.2.2sci8u1) scibian8; urgency=medium
-
-  * Scibian8 rebuild.
-
- -- Thomas Hamel <thomas-externe.hamel@edf.fr>  Mon, 18 Dec 2017 13:46:23 +0100
 
 slurm-web (2.2.2) unstable; urgency=medium
 
