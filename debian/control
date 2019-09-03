@@ -1,5 +1,5 @@
 Source: slurm-web
-Maintainer: Scibian Project <packaging@scibian.org>
+Maintainer: CCN HPC <dsp-cspito-ccn-hpc@edf.fr>
 Uploaders: Rémi Palancher <remi-externe.palancher@edf.fr>, Mehdi Dogguy <mehdi.dogguy@edf.fr>
 Section: web
 Priority: extra
@@ -10,8 +10,6 @@ Build-Depends:
  node-uglify,
  fonts-dejavu-core,
  node-opentypejs (>> 0.4.3-1)
-Vcs-Git: https://github.com/scibian/slurm-web.git
-Vcs-Browser: https://github.com/scibian/slurm-web
 
 Package: slurm-web-restapi
 Architecture: any
