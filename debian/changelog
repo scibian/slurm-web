@@ -1,3 +1,10 @@
+slurm-web (2.2.4sci8u2) scibian8; urgency=medium
+
+  * Change maintainer
+  * Add VCS-* metadata
+
+ -- Frédéric Ballan <frederic-externe.ballan@edf.fr>  Tue, 03 Sep 2019 18:26:16 +0200
+
 slurm-web (2.2.4sci8u1) scibian8; urgency=medium
 
   [ Frédéric BALLAN ]
