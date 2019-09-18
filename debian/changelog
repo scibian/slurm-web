@@ -1,5 +1,7 @@
 slurm-web (2.2.5sci9u1) scibian9; urgency=medium
 
+  * Import Debian version 2.2.5
+
   [ Frédéric Ballan ]
   * Fix a bug with /sinfo rest point
   * Fix 2.2.4 changelog
