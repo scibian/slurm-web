@@ -1,8 +1,15 @@
-slurm-web (2.2.5sci8u1) unstable; urgency=medium
+slurm-web (2.2.5sci8u1) scibian8; urgency=medium
+
+  [ Nicolas Meaux ]
+  * correct a bug with /sinfo uri
+  * Release 2.2.4sci8u3
 
   [ Frédéric Ballan ]
+  * Revert "correct a bug with /sinfo uri"
+  * Revert "Release 2.2.4sci8u3"
   * Fix a bug with /sinfo rest point
   * Fix 2.2.4 changelog
+  * Import Debian version 2.2.5
 
  -- Frédéric Ballan <frederic-externe.ballan@edf.fr>  Wed, 18 Sep 2019 14:15:20 +0200
 
