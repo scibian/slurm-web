@@ -1,3 +1,11 @@
+slurm-web (2.2.5sci8u1) unstable; urgency=medium
+
+  [ Frédéric Ballan ]
+  * Fix a bug with /sinfo rest point
+  * Fix 2.2.4 changelog
+
+ -- Frédéric Ballan <frederic-externe.ballan@edf.fr>  Wed, 18 Sep 2019 14:15:20 +0200
+
 slurm-web (2.2.4sci8u2) scibian8; urgency=medium
 
   * Change maintainer
@@ -10,12 +18,6 @@ slurm-web (2.2.4sci8u1) scibian8; urgency=medium
   [ Frédéric BALLAN ]
   * Import Debian version 2.2.4
 
-  [ Frédéric Ballan ]
-
- -- Frédéric Ballan <frederic-externe.ballan@edf.fr>  Tue, 03 Sep 2019 16:06:16 +0200
-
-slurm-web (2.2.4) unstable; urgency=medium
-
   [ esolares ]
   * Fixed month abbreviation in debian/changelog
 
@@ -23,6 +25,22 @@ slurm-web (2.2.4) unstable; urgency=medium
   * Try to log in current cluster first
   * Allow switch to login page if unauthorized
   * Enhance auto-refresh checkbox's behavior
+
+  [ Kevin Dice ]
+  * Force munged to suppress bound to socket error #168
+
+  [ Mehdi Dogguy ]
+  * Set default refresh delay to 1min
+
+  [ Nicolas Meaux ]
+  * give some docs examples for api login
+
+  [ Yen C. Li ]
+  * Fix regression on allocated cores layout
+  * Empty nodes should not be ignored
+  * User may disable pages from auto-refreshing
+  * Add advance refresh checkbox control
+  * Add possibility for password hint
 
  -- Frédéric BALLAN <frederic-externe.ballan@edf.fr>  Fri, 30 Aug 2019 15:39:45 +0200
 
