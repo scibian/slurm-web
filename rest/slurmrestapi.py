@@ -19,7 +19,7 @@
 # along with slurm-web.  If not, see <http://www.gnu.org/licenses/>.
 
 from flask import (Flask, jsonify, request, abort, send_from_directory,
-                   render_template, make_response)
+                   render_template)
 import pyslurm
 import json
 import os
@@ -485,7 +485,7 @@ def sinfo():
 
     # Jsonify can not works on list, thus using json.dumps
     # And making sure headers are properly set
-    return make_response((json.dumps(resp), 200, {'Content-Type': 'application/json'}))
+    return make_response(json.dumps(resp), mimetype='application/json')
 
 
 # The purpose of the /proxy and /static routes is just to make CORS work on IE9

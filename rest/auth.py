@@ -20,7 +20,7 @@
 
 import ldap
 import json
-from flask import request, abort, jsonify, Response
+from flask import request, abort, jsonify
 from settings import settings
 from functools import wraps
 from werkzeug.exceptions import Forbidden
@@ -317,9 +317,6 @@ def authentication_verify():
             user = get_current_user()
 
             filter_dict(resp, filtered_keys_by_role[user.role])
-            if type(resp) is Response:
-                return resp
-
             return jsonify(resp)
 
         return inner
