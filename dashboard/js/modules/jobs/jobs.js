@@ -89,6 +89,7 @@ define([
       if (self.tagsinputOptions.length > 0) {
         tagsinputUtils.filterJobs(jobs, self.tagsinputOptions, config, filteredJobs);
       } else {
+        $('#total-cpus').text('');
         filteredJobs(jobs, jobs);
       }
     }
@@ -171,11 +172,14 @@ define([
             tagsinputOptions: self.tagsinputOptions.toString(),
             hasJobs: Object.keys(jobs).length !== 0
           };
-
+          var demicanvas = ($('#main').innerWidth()-50-15*8)/4/2;
           plotParams = {
             series: {
               pie: {
-                show: true
+                show: true,
+                offset: {
+                  left: Math.floor(-1*Math.min(demicanvas-65, demicanvas/2))+1
+                }
               }
             }
           };
@@ -393,7 +397,7 @@ define([
       }, config.REFRESH);
     };
 
-    this.stopRefresh = function(){
+    this.stopRefresh = function() {
       clearInterval(this.interval);
     }
 
