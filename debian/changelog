@@ -1,3 +1,9 @@
+slurm-web (2.2.6sci8u1) scibian8; urgency=medium
+
+  * Import Debian version 2.2.6
+
+ -- Frédéric Ballan <frederic-externe.ballan@edf.fr>  Tue, 21 Jul 2020 10:41:13 +0200
+
 slurm-web (2.2.6) unstable; urgency=medium
 
   * Close some vulnerabilities
