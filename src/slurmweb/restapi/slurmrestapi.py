@@ -31,19 +31,19 @@ if os.getenv('SLURM_WEB_CLUSTER_MOCK') is not None:
     setup_mock(os.environ['SLURM_WEB_CLUSTER_MOCK'])
 
 # for racks description
-from racks import parse_racks
+from slurmweb.restapi.racks import parse_racks
 
 # for CORS
-from cors import crossdomain
-from settings import settings
+from slurmweb.restapi.cors import crossdomain
+from slurmweb.restapi.settings import settings
 
 # for authentication
-from auth import (User, authentication_verify,
+from slurmweb.restapi.auth import (User, authentication_verify,
                   AuthenticationError, AllUnauthorizedError,
                   guests_allowed, auth_enabled, fill_job_user,
-                  get_current_user)
+                  get_current_user, CORSForbidden)
 
-from cache import get_from_cache
+from slurmweb.restapi.cache import get_from_cache
 
 # for nodeset conversion
 from ClusterShell.NodeSet import NodeSet
@@ -74,7 +74,7 @@ def custom403(error):
 @app.route('/version', methods=['GET', 'OPTIONS'])
 @crossdomain(origin=origins)
 def version():
-    return "Slurm-web REST API v2.2"
+    return "Slurm-web REST API v2.4"
 
 
 @app.route('/login', methods=['POST', 'OPTIONS'])
@@ -127,7 +127,7 @@ def login():
 def get_jobs():
     jobs = get_from_cache(pyslurm.job().get, 'get_jobs')
 
-    for jobid, job in jobs.iteritems():
+    for jobid, job in jobs.items():
         # add login and user's name (additionally to UID) for each job
         try:
             fill_job_user(job)
@@ -136,9 +136,7 @@ def get_jobs():
 
         # convert nodeset in array of nodes
         if job["nodes"] is not None:
-            jobs[jobid]["nodeset"] = list(
-                NodeSet(job["nodes"].encode('ascii', 'ignore'))
-            )
+            jobs[jobid]["nodeset"] = list(NodeSet(job["nodes"]))
     return filter_entities('jobs', jobs)
 
 
@@ -187,7 +185,7 @@ def get_cluster():
     cluster['name'] = pyslurm.config().get()['cluster_name']
     cluster['nodes'] = len(nodes.keys())
     cluster['cores'] = 0
-    for nodename, node in nodes.iteritems():
+    for nodename, node in nodes.items():
         cluster['cores'] += node['cpus']
     resp = jsonify({
         'authentication': {
@@ -285,7 +283,7 @@ def get_qos():
         # textual form using tres_convert_ids()
         for qos_name in qos:
             xqos = qos[qos_name]
-            for key, value in xqos.iteritems():
+            for key, value in xqos.items():
                 if value is not None and key.find('_tres') > 0:
                     qos[qos_name][key] = convert_tres_ids(value)
 
@@ -306,7 +304,7 @@ def get_topology():
         # are strings (or None eventually) representing the hostlist of devices
         # connected to the switch. These hostlist are expanded in lists using
         # Clustershell Nodeset() into new corresponding *list members.
-        for switch in topology.itervalues():
+        for switch in topology.values():
             if switch['switches'] is not None:
                 switch['switchlist'] = list(NodeSet(switch['switches']))
             if switch['nodes'] is not None:
@@ -330,12 +328,12 @@ def get_jobs_by_node_id(node_id):
     returned_jobs = {}
 
     # filter jobs by node
-    for jobid, job in jobs.iteritems():
+    for jobid, job in jobs.items():
         nodes_list = job['cpus_allocated'].keys()
         if node_id in nodes_list:
             returned_jobs[jobid] = job
 
-    for jobid, job in returned_jobs.iteritems():
+    for jobid, job in returned_jobs.items():
         fill_job_user(job)
 
     return filter_entities('jobs', returned_jobs)
@@ -356,14 +354,14 @@ def get_jobs_by_node_ids():
     returned_jobs = {}
 
     # filter jobs by node
-    for jobid, job in jobs.iteritems():
+    for jobid, job in jobs.items():
         nodes_list = job['cpus_allocated'].keys()
 
         for node_id in nodes:
             if node_id in nodes_list:
                 returned_jobs[jobid] = job
 
-    for jobid, job in returned_jobs.iteritems():
+    for jobid, job in returned_jobs.items():
         fill_job_user(job)
 
     return filter_entities('jobs', returned_jobs)
@@ -382,10 +380,10 @@ def get_jobs_by_nodes():
 
     returned_nodes = {}
 
-    for node_id, node in nodes.iteritems():
+    for node_id, node in nodes.items():
         returned_jobs = {}
         # filter jobs by node
-        for jobid, job in jobs.iteritems():
+        for jobid, job in jobs.items():
             nodes_list = job['cpus_allocated'].keys()
             if node_id in nodes_list:
                 returned_jobs[jobid] = job
@@ -408,10 +406,10 @@ def get_jobs_by_qos():
 
     returned_qos = {}
 
-    for qos_id, q in qos.iteritems():
+    for qos_id, q in qos.items():
         returned_jobs = {}
         # filter jobs by node
-        for jobid, job in jobs.iteritems():
+        for jobid, job in jobs.items():
             if qos_id == job['qos']:
                 returned_jobs[jobid] = job
 
@@ -426,7 +424,7 @@ def get_jobs_by_qos():
 def convert_nodeset():
 
     data = json.loads(request.data)
-    return json.dumps(list(NodeSet(data['nodeset'].encode('ascii', 'ignore'))))
+    return json.dumps(list(NodeSet(data['nodeset'])))
 
 
 @app.route('/sinfo', methods=['GET', 'OPTIONS'])
@@ -443,12 +441,12 @@ def sinfo():
     # Retreiving the state of each nodes
     nodes_state = dict(
         (node.lower(), attributes['state'].lower())
-        for node, attributes in nodes.iteritems()
+        for node, attributes in nodes.items()
     )
 
     # For all partitions, retrieving the states of each nodes
     sinfo_data = {}
-    for name, attr in partitions.iteritems():
+    for name, attr in partitions.items():
 
         for node in list(NodeSet(attr['nodes'])):
             key = (name, nodes_state[node])
@@ -458,7 +456,7 @@ def sinfo():
 
     # Preparing the response
     resp = []
-    for k, nodes in sinfo_data.iteritems():
+    for k, nodes in sinfo_data.items():
         name, state = k
         partition = partitions[name]
         avail = partition['state'].lower()
@@ -552,7 +550,7 @@ def filter_entities(entity, entitiesList):
         # show if auth disabled, onlyUsersEntities becomes always False and all
         # the entities are added to the list to show
 
-        return dict((k, v) for k, v in entitiesList.iteritems()
+        return dict((k, v) for k, v in entitiesList.items()
                     if ((entity == 'reservations' and currentUser.login in
                         v['users']) or (entity == 'jobs' and
                         currentUser.login == v['login'])))

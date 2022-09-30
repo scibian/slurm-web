@@ -1,3 +1,4 @@
 conf/slurm-web-confdashboard.conf etc/apache2/conf-available
 conf/dashboard/* etc/slurm-web/dashboard
-dashboard/backend/* /usr/share/slurm-web/conf-server
+usr/lib/python*/*/slurmweb/confdashboard/slurm-web-conf.wsgi usr/share/slurm-web/conf-server
+usr/lib/python*/*/slurmweb/confdashboard/*.py
