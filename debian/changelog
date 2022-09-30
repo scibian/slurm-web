@@ -1,3 +1,9 @@
+slurm-web (2.4.0sci9u1) scibian9; urgency=medium
+
+  * replace inexistant python3-ldap by python3-pyldap
+
+ -- Kwame Amedodji <kwame-externe.amedodji@edf.fr>  Fri, 30 Sep 2022 16:20:38 +0200
+
 slurm-web (2.4.0) unstable; urgency=medium
 
   * Back to standard old pybuild/setuptools as pip/wheel based builds are not
