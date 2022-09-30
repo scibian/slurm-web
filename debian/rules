@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 %:
-	dh $@ --with apache2
+	dh $@ --with apache2 --with python3 --buildsystem pybuild
 
 override_dh_auto_build:
 	uglifyjs -o dashboard/js/libraries/xdomain.min.js dashboard/js/libraries/xdomain.js

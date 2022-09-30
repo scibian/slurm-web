@@ -6,6 +6,9 @@ Priority: extra
 Standards-Version: 3.9.6
 Build-Depends:
  debhelper (>= 8),
+ dh-python,
+ python3-all,
+ python3-setuptools,
  apache2-dev,
  node-uglify,
  fonts-dejavu-core,
