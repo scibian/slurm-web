@@ -1,0 +1,56 @@
+<div class='table-responsive'>
+  {{#if count}}
+    <table class='table table-striped tablesorter'>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>User</th>
+          <th>Resources</th>
+          <th>State</th>
+          <th>Reason</th>
+          <th>Start</th>
+          <th>QOS</th>
+          <th>Partition</th>
+          <th>Workload</th>
+          {{#if columnname}}
+            <th>{{columnname}}</th>
+          {{/if}}
+        </tr>
+      </thead>
+      <tbody>
+        {{#each jobs}}
+          <tr class="job-row" id="tr-job-{{@key}}">
+            <td>{{@key}}</td>
+            <td>{{login}} ({{username}})</td>
+            {{#if tres_alloc_str}}
+              <td>{{tres_alloc_str}}</td>
+            {{else}}
+              <td>{{tres_req_str}}</td>
+            {{/if}}
+            <td>{{job_state}}</td>
+            <td>{{printReason job_state state_reason}}</td>
+            <td>{{printStartTime start_time eligible_time job_state}}</td>
+            <td data-qos="{{qos}} (qos)">{{qos}}</td>
+            <td data-partition="{{partition}} (partition)">{{partition}}</td>
+            <td data-wckey="{{wckey}} (wckey)">{{wckey}}</td>
+            {{#if ../columnname}}
+              <td>{{#isEqual ../job_state ../../condition}}
+                    {{#include parent=../../..}}
+                      {{> xtracol}}
+                    {{/include}}
+                  {{/isEqual}}
+                  {{#isEqual ../../condition "ALL"}}
+                    {{#include parent=../../..}}
+                      {{> xtracol}}
+                    {{/include}}
+                  {{/isEqual}}
+              </td>
+            {{/if}}
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    {{else}}
+      <p>There is no data to display.</p>
+  {{/if}}
+</div>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Slurm HPC Dashboard</title>
+    <link rel="shortcut icon" href="static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="static/favicon.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Slurm HPC dashboard">
+    <meta name="author" content="CCN-HPC">
+    <link href="/javascript/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/javascript/bootstrap/css/bootstrap-tagsinput.css" rel="stylesheet">
+    <link href="css/dashboard.css" rel="stylesheet">
+    <style> html{display:none;} </style>
+    <script>
+      if (self == top) {
+        document.documentElement.style.display = 'block';
+      } else {
+        top.location = self.location;
+      }
+    </script>
+  </head>
+  <body>
+    <script type="text/javascript" data-main="js/core/index" src="/javascript/requirejs/require.min.js"></script>
+
+    <div class="container-fluid">
+      <div class="row row-offcanvas row-offcanvas-left">
+        <div id="clusters" class="col-sm-3 col-md-2 sidebar-offcanvas" role="navigation"></div>
+        <div id="main" class="col-sm-9 col-md-10 main">
+          <p class="visible-xs">
+            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">
+              <i class="glyphicon glyphicon-chevron-left"></i>
+            </button>
+          </p>
+          <span id="refreshCheckboxContainer">
+            <span>Auto refresh</span>
+            <input id="refreshCheckbox" type="checkbox" checked>
+          </span>
+          <div id="flash" style="display: none;">
+            <div class="alert alert-danger" role="alert"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="loader"></div>
+  </body>
+</html>
