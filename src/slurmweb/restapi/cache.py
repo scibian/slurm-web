@@ -88,7 +88,7 @@ def get_from_cache(f, overrideName=None, *args, **kwargs):
         data = r.get(cache_key)
         if data is not None:
             print("get %s from cache" % cache_key)
-            return json.loads(data)
+            return json.loads(data.decode())
 
         if 'job' in f.__name__:
             expiration = jobs_expiration

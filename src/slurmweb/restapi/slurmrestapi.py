@@ -84,7 +84,7 @@ def login():
     if not auth_enabled:
         abort(404)
 
-    data = json.loads(request.data)
+    data = json.loads(request.data.decode())
     if data.get('guest', None) is True:
         try:
             user = User.guest()
@@ -349,7 +349,7 @@ def get_jobs_by_node_ids():
 
     jobs = get_from_cache(pyslurm.job().get, 'get_jobs')
 
-    nodes = json.loads(request.data).get('nodes', [])
+    nodes = json.loads(request.data.decode()).get('nodes', [])
 
     returned_jobs = {}
 
@@ -423,7 +423,7 @@ def get_jobs_by_qos():
              headers=['Accept', 'Content-Type', 'X-Requested-With'])
 def convert_nodeset():
 
-    data = json.loads(request.data)
+    data = json.loads(request.data.decode())
     return json.dumps(list(NodeSet(data['nodeset'])))
 
 
