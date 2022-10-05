@@ -1,3 +1,9 @@
+slurm-web (2.4.0sci9u2) scibian9; urgency=medium
+
+  * Fix python3.5 str versus bytes issue
+
+ -- Kwame Amedodji <kwame-externe.amedodji@edf.fr>  Wed, 05 Oct 2022 13:28:57 +0200
+
 slurm-web (2.4.0sci9u1) scibian9; urgency=medium
 
   * replace inexistant python3-ldap by python3-pyldap
